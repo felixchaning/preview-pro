@@ -8,7 +8,10 @@
     </template>
     <div class="margin-bottom: 24px">
       <h3>导航模式</h3>
-      <a-radio-group :value="modelValue.layout" @change="e => updateConf(e.target.value, 'layout')">
+      <a-radio-group
+        :value="modelValue.layout"
+        @change="(e) => updateConf(e.target.value, 'layout')"
+      >
         <a-radio value="side">左侧菜单布局</a-radio>
         <a-radio value="top">顶部菜单布局</a-radio>
         <a-radio value="mix">混合菜单布局</a-radio>
@@ -21,7 +24,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.fixedHeader"
-            @change="checked => updateConf(checked, 'fixedHeader')"
+            @change="(checked) => updateConf(checked, 'fixedHeader')"
           />
         </a-col>
       </a-row>
@@ -32,7 +35,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.fixSiderbar"
-            @change="checked => updateConf(checked, 'fixSiderbar')"
+            @change="(checked) => updateConf(checked, 'fixSiderbar')"
           />
         </a-col>
       </a-row>
@@ -43,7 +46,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.splitMenus"
-            @change="checked => updateConf(checked, 'splitMenus')"
+            @change="(checked) => updateConf(checked, 'splitMenus')"
           />
         </a-col>
       </a-row>
@@ -57,7 +60,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.headerRender === undefined"
-            @change="checked => updateConf(checked === true && undefined, 'headerRender')"
+            @change="(checked) => updateConf(checked === true && undefined, 'headerRender')"
           />
         </a-col>
       </a-row>
@@ -68,7 +71,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.footerRender === undefined"
-            @change="checked => updateConf(checked === true && undefined, 'footerRender')"
+            @change="(checked) => updateConf(checked === true && undefined, 'footerRender')"
           />
         </a-col>
       </a-row>
@@ -80,7 +83,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.menu === undefined"
-            @change="checked => updateConf(checked === true && undefined, 'menu')"
+            @change="(checked) => updateConf(checked === true && undefined, 'menu')"
           />
         </a-col>
       </a-row>
@@ -91,7 +94,7 @@
             checked-children="开"
             un-checked-children="关"
             :checked="modelValue.menuHeaderRender === undefined"
-            @change="checked => updateConf(checked === true && undefined, 'menuHeaderRender')"
+            @change="(checked) => updateConf(checked === true && undefined, 'menuHeaderRender')"
           />
         </a-col>
       </a-row>
@@ -100,29 +103,29 @@
 </template>
 
 <script setup lang="ts">
-import { SettingOutlined, CloseOutlined } from '@ant-design/icons-vue';
-import type { CheckedType } from 'ant-design-vue/es/switch';
+import { SettingOutlined, CloseOutlined } from "@ant-design/icons-vue"
+import type { CheckedType } from "ant-design-vue/es/switch"
 
-type ConfType = 'layout' | 'fixedHeader' | 'fixSiderbar' | string;
+type ConfType = "layout" | "fixedHeader" | "fixSiderbar" | string
 
 const props = defineProps<{
-  modelValue: Record<string, string | boolean | undefined>;
-}>();
-const emit = defineEmits(['update:modelValue']);
+  modelValue: Record<string, string | boolean | undefined>
+}>()
+const emit = defineEmits(["update:modelValue"])
 
-const visible = ref<boolean>(false);
+const visible = ref<boolean>(false)
 const handleShowDrawer = () => {
-  visible.value = !visible.value;
-};
+  visible.value = !visible.value
+}
 
 const updateConf = (val: string | CheckedType | undefined, type: ConfType) => {
   const newVal = {
     ...toRaw(props.modelValue),
-    [`${type}`]: val,
-  };
-  console.log('newConf', newVal);
-  emit('update:modelValue', newVal);
-};
+    [`${type}`]: val
+  }
+  console.log("newConf", newVal)
+  emit("update:modelValue", newVal)
+}
 </script>
 
 <style lang="less">

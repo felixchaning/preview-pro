@@ -1,11 +1,12 @@
 {
-  "singleQuote": true,
-  "trailingComma": "all",
+  "singleQuote": false,
+  "trailingComma": "none",
   "endOfLine": "lf",
   "printWidth": 100,
   "proseWrap": "never",
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "htmlWhitespaceSensitivity": "ignore",
+  "semi": false,
   "overrides": [
     {
       "files": ".prettierrc",

@@ -1,0 +1,11 @@
+component: website
+name: vue-starter
+app: xx-18d8a63c
+
+inputs:
+  src:
+    src: ./src
+    hook: npm run build
+    dist: ./dist
+  bucketName: my-vue-starter
+  protocol: https

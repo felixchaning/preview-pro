@@ -13,8 +13,8 @@
   >
     <template #menuHeaderRender>
       <router-link :to="{ path: '/' }">
-        <img src="https://alicdn.antdv.com/v2/assets/logo.1ef800a8.svg" />
-        <h1>Preview Pro</h1>
+<!--        <img src="https://alicdn.antdv.com/v2/assets/logo.1ef800a8.svg" />-->
+        <h1 style="color: black">欣向管理平台</h1>
       </router-link>
     </template>
     <template #rightContentRender>
@@ -31,7 +31,7 @@
         {{ route.breadcrumbName }}
       </router-link>
     </template>
-    <SettingDrawer v-model="proConfig" />
+    <SettingDrawer v-model="proConfig" v-if="false" />
     <RouterView v-slot="{ Component, route }">
       <transition name="slide-left" mode="out-in">
         <component :is="Component" :key="route.path" />
@@ -41,48 +41,52 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, RouterView, RouterLink } from 'vue-router';
-import { getMenuData, clearMenuItem, type RouteContextProps } from '@ant-design-vue/pro-layout';
-import { SmileOutlined, HeartOutlined } from '@ant-design/icons-vue';
+import { useRouter, RouterView, RouterLink } from "vue-router"
+import { getMenuData, clearMenuItem, type RouteContextProps } from "@ant-design-vue/pro-layout"
+import { SmileOutlined, HeartOutlined } from "@ant-design/icons-vue"
 
-const router = useRouter();
-const { menuData } = getMenuData(clearMenuItem(router.getRoutes()));
+const router = useRouter()
+const { menuData } = getMenuData(clearMenuItem(router.getRoutes()))
 
-const state = reactive<Omit<RouteContextProps, 'menuData'>>({
+const state = reactive<Omit<RouteContextProps, "menuData">>({
   collapsed: false, // default collapsed
   openKeys: [], // defualt openKeys
-  selectedKeys: [], // default selectedKeys
-});
-const loading = ref(false);
+  selectedKeys: [] // default selectedKeys
+})
+const loading = ref(false)
 const proConfig = ref({
-  layout: 'mix',
-  navTheme: 'light',
+  layout: "basic",
+  navTheme: "light",
   fixedHeader: true,
   fixSiderbar: true,
   splitMenus: true,
-});
+  collapsed: false,
+  collapsedButtonRender: () => {}
+})
 const breadcrumb = computed(() =>
-  router.currentRoute.value.matched.concat().map(item => {
+  router.currentRoute.value.matched.concat().map((item) => {
     return {
       path: item.path,
-      breadcrumbName: item.meta.title || '',
-    };
-  }),
-);
+      breadcrumbName: item.meta.title || ""
+    }
+  })
+)
 const currentUser = reactive({
-  nickname: 'Admin',
-  avatar: 'A',
-});
+  nickname: "syzh",
+  avatar: "A"
+})
 
 watch(
   router.currentRoute,
   () => {
-    const matched = router.currentRoute.value.matched.concat();
-    state.selectedKeys = matched.filter(r => r.name !== 'index').map(r => r.path);
-    state.openKeys = matched.filter(r => r.path !== router.currentRoute.value.path).map(r => r.path);
+    const matched = router.currentRoute.value.matched.concat()
+    state.selectedKeys = matched.filter((r) => r.name !== "index").map((r) => r.path)
+    state.openKeys = matched
+      .filter((r) => r.path !== router.currentRoute.value.path)
+      .map((r) => r.path)
   },
   {
-    immediate: true,
-  },
-);
+    immediate: true
+  }
+)
 </script>
