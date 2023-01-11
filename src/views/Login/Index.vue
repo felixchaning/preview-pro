@@ -55,6 +55,7 @@ const handleLogin = async () => {
   //   await router.push("/")
   // }
   // console.log(response)
+  localStorage.setItem("token", "123")
   router.push("/")
 }
 </script>
